@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fee Verification | Admin Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div id="global-loader" class="loader-overlay">
+        <div class="spinner"></div>
+    </div>
+    <div class="admin-wrapper">
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-icon"><i class="fas fa-bus"></i></div>
+                <span class="brand-name">BUS TRACK</span>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="index.html" class="nav-link"><i
+                                class="fas fa-grid-2"></i><span>Overview</span></a></li>
+                    <li class="nav-item"><a href="drivers.html" class="nav-link"><i
+                                class="fas fa-id-badge"></i><span>Personnel</span></a></li>
+                    <li class="nav-item"><a href="students.html" class="nav-link"><i
+                                class="fas fa-user-graduate"></i><span>Students</span></a></li>
+                    <li class="nav-item"><a href="fees.html" class="nav-link active"><i
+                                class="fas fa-money-check-alt"></i><span>Fee Verification</span></a></li>
+                    <li class="nav-item"><a href="routes.html" class="nav-link"><i class="fas fa-route"></i><span>Fleet
+                                Routes</span></a></li>
+                    <li class="nav-item"><a href="tracking.html" class="nav-link"><i
+                                class="fas fa-satellite-dish"></i><span>Live Monitor</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="header">
+                <div class="page-title">
+                    <h1>Fee Verification</h1>
+                    <p>Review and Approve Student Payments</p>
+                </div>
+            </header>
+
+            <div class="data-container fade-in">
+                <div class="data-header">
+                    <h2>Pending Requests</h2>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Student</th>
+                            <th>Enrollment ID</th>
+                            <th>Term</th>
+                            <th>Amount</th>
+                            <th>UTR Number</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="fees-table-body">
+                        <tr>
+                            <td colspan="7" style="text-align:center; padding:40px;">Loading requests...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="data-container fade-in" style="margin-top: 30px;">
+                <div class="data-header">
+                    <h2>Recent Approvals</h2>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Student</th>
+                            <th>UTR</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="approved-table-body"></tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="js/fees.js"></script>
+</body>
+
+</html>

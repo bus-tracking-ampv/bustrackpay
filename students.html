@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Database | Admin Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        if (localStorage.getItem('admin_logged_in') !== 'true') {
+            window.location.href = 'login.html';
+        }
+    </script>
+</head>
+
+<body>
+    <div id="global-loader" class="loader-overlay">
+        <div class="spinner"></div>
+    </div>
+
+    <div class="admin-wrapper">
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-icon"><i class="fas fa-bus"></i></div>
+                <span class="brand-name">BUS TRACK</span>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="index.html" class="nav-link"><i
+                                class="fas fa-grid-2"></i><span>Overview</span></a></li>
+                    <li class="nav-item"><a href="drivers.html" class="nav-link"><i
+                                class="fas fa-id-badge"></i><span>Personnel</span></a></li>
+                    <li class="nav-item"><a href="students.html" class="nav-link active"><i
+                                class="fas fa-user-graduate"></i><span>Students</span></a></li>
+                    <li class="nav-item"><a href="fees.html" class="nav-link"><i
+                                class="fas fa-money-check-alt"></i><span>Fees</span></a></li>
+                    <li class="nav-item"><a href="routes.html" class="nav-link"><i class="fas fa-route"></i><span>Fleet
+                                Routes</span></a></li>
+                    <li class="nav-item"><a href="tracking.html" class="nav-link"><i
+                                class="fas fa-satellite-dish"></i><span>Live Monitor</span></a></li>
+                    <li class="nav-item"><a href="notifications.html" class="nav-link"><i
+                                class="fas fa-bullhorn"></i><span>Broadcasts</span></a></li>
+                </ul>
+                <ul class="nav-menu" style="margin-top: 100px;">
+                    <li class="nav-item"><a href="login.html" class="nav-link" style="color: var(--accent-rose);"><i
+                                class="fas fa-power-off"></i><span>Logout</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="header">
+                <div class="page-title">
+                    <h1>Student Registry</h1>
+                    <p>Active Academic Enrollments</p>
+                </div>
+                <button class="btn-primary" id="btn-add-student">
+                    <i class="fas fa-plus"></i> Enroll Student
+                </button>
+            </header>
+
+            <div class="data-container fade-in">
+                <div class="data-header">
+                    <h2>Academic Enrollments</h2>
+                    <input type="text" class="search-bar" id="search-student" placeholder="Search by Enrollment ID...">
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Student</th>
+                            <th>Enrollment ID</th>
+                            <th>Bus No</th>
+                            <th>Fee Status</th>
+                            <th>Pass Valid</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="student-table-body"></tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal -->
+    <div id="student-modal"
+        style="display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(8px); z-index: 1000; place-items: center; padding: 20px;">
+        <div class="data-container fade-in" style="width: 100%; max-width: 500px; background: white;">
+            <div class="data-header">
+                <h2 id="modal-title" style="font-size: 24px; font-weight: 800;">Enroll Student</h2>
+                <button onclick="closeModal()"
+                    style="background: var(--bg-light); border: none; width: 40px; height: 40px; border-radius: 12px; color: var(--text-primary); cursor: pointer;"><i
+                        class="fas fa-times"></i></button>
+            </div>
+            <form id="student-form">
+                <input type="hidden" id="edit-id">
+                <div style="margin-bottom: 20px;">
+                    <label
+                        style="display: block; margin-bottom: 10px; font-weight: 600; color: var(--text-secondary);">Student
+                        Full Name</label>
+                    <input type="text" id="student-name" class="search-bar" style="width: 100%;" required>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                    <div>
+                        <label
+                            style="display: block; margin-bottom: 10px; font-weight: 600; color: var(--text-secondary);">Email
+                            Address</label>
+                        <input type="email" id="student-email" class="search-bar" style="width: 100%;"
+                            placeholder="student@example.com">
+                    </div>
+                    <div>
+                        <label
+                            style="display: block; margin-bottom: 10px; font-weight: 600; color: var(--text-secondary);">Mobile
+                            Number</label>
+                        <input type="tel" id="student-phone" class="search-bar" style="width: 100%;"
+                            placeholder="+91 0000000000">
+                    </div>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                    <div>
+                        <label
+                            style="display: block; margin-bottom: 10px; font-weight: 600; color: var(--text-secondary);">Enrollment
+                            ID</label>
+                        <input type="text" id="student-id" class="search-bar" style="width: 100%;" required>
+                    </div>
+                    <div>
+                        <label
+                            style="display: block; margin-bottom: 10px; font-weight: 600; color: var(--text-secondary);">Assigned
+                            Bus</label>
+                        <input type="text" id="student-bus" class="search-bar" style="width: 100%;" required>
+                    </div>
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <label
+                        style="display: block; margin-bottom: 10px; font-weight: 600; color: var(--text-secondary);">Pickup
+                        Point</label>
+                    <select id="student-pickup-stop" class="search-bar" style="width: 100%;">
+                        <option value="">-- Select Stop --</option>
+                    </select>
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <label
+                        style="display: block; margin-bottom: 10px; font-weight: 600; color: var(--text-secondary);">Student
+                        Password</label>
+                    <input type="password" id="student-pass" class="search-bar" style="width: 100%;" required
+                        value="password123">
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                    <div>
+                        <label
+                            style="display: block; margin-bottom: 10px; font-weight: 600; color: var(--text-secondary);">Semester
+                            1 Fees</label>
+                        <select id="student-fee-sem1" class="search-bar" style="width: 100%;">
+                            <option value="Paid">Paid</option>
+                            <option value="Pending">Pending</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label
+                            style="display: block; margin-bottom: 10px; font-weight: 600; color: var(--text-secondary);">Semester
+                            2 Fees</label>
+                        <select id="student-fee-sem2" class="search-bar" style="width: 100%;">
+                            <option value="Paid">Paid</option>
+                            <option value="Pending">Pending</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px;">
+                    <div>
+                        <label
+                            style="display: block; margin-bottom: 10px; font-weight: 600; color: var(--text-secondary);">Overall
+                            Status</label>
+                        <select id="student-fees" class="search-bar" style="width: 100%;">
+                            <option value="Paid">Full Paid</option>
+                            <option value="Pending">Pending</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label
+                            style="display: block; margin-bottom: 10px; font-weight: 600; color: var(--text-secondary);">Pass
+                            Eligibility</label>
+                        <select id="student-pass-status" class="search-bar" style="width: 100%;">
+                            <option value="Valid">Valid</option>
+                            <option value="Invalid">Invalid</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; padding: 16px;">
+                    CONFIRM ENROLLMENT
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="js/students.js"></script>
+    <script>function closeModal() { document.getElementById('student-modal').style.display = 'none'; }</script>
+</body>
+
+</html>

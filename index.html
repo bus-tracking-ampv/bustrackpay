@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | College Bus Tracking</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        if (localStorage.getItem('admin_logged_in') !== 'true' && !window.location.href.includes('login.html')) {
+            window.location.href = 'login.html';
+        }
+    </script>
+</head>
+
+<body>
+    <div id="global-loader" class="loader-overlay">
+        <div class="spinner"></div>
+    </div>
+
+    <div class="admin-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-icon">
+                    <i class="fas fa-bus"></i>
+                </div>
+                <span class="brand-name">BUS TRACK</span>
+            </div>
+
+            <nav>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link active">
+                            <i class="fas fa-grid-2"></i> <!-- Modern icon -->
+                            <span>Overview</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="drivers.html" class="nav-link">
+                            <i class="fas fa-id-badge"></i>
+                            <span>Personnel</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="students.html" class="nav-link">
+                            <i class="fas fa-user-graduate"></i>
+                            <span>Students</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="fees.html" class="nav-link">
+                            <i class="fas fa-money-check-alt"></i>
+                            <span>Fees</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="routes.html" class="nav-link">
+                            <i class="fas fa-route"></i>
+                            <span>Fleet Routes</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="tracking.html" class="nav-link">
+                            <i class="fas fa-satellite-dish"></i>
+                            <span>Live Monitor</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="notifications.html" class="nav-link">
+                            <i class="fas fa-bullhorn"></i>
+                            <span>Broadcasts</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <ul class="nav-menu" style="margin-top: 100px;">
+                    <li class="nav-item">
+                        <a href="login.html" class="nav-link" style="color: var(--accent-rose);">
+                            <i class="fas fa-power-off"></i>
+                            <span>Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="header">
+                <div class="page-title">
+                    <h1>Dashboard</h1>
+                    <p>System Overview &amp; Analytics</p>
+                </div>
+                <div class="header-actions">
+                    <div class="admin-profile"
+                        style="display: flex; align-items: center; gap: 15px; background: white; padding: 8px 20px; border-radius: 20px; border: 1px solid var(--border-color); box-shadow: var(--shadow-premium);">
+                        <div style="text-align: right;">
+                            <div style="font-weight: 800; font-size: 14px;">Akash Shinde</div>
+                            <div style="font-size: 11px; color: var(--text-secondary); font-weight: 700;">CHIEF ADMIN
+                            </div>
+                        </div>
+                        <img src="https://ui-avatars.com/api/?name=Akash+Shinde&background=0F67FD&color=fff"
+                            style="width: 40px; height: 40px; border-radius: 12px; border: 2px solid var(--bg-light);">
+                    </div>
+                </div>
+            </header>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card fade-in">
+                    <div class="stat-icon" style="background: rgba(15, 103, 253, 0.1); color: var(--primary-color);">
+                        <i class="fas fa-id-badge"></i>
+                    </div>
+                    <div class="stat-value" id="count-drivers">0</div>
+                    <div class="stat-label">Verified Drivers</div>
+                </div>
+
+                <div class="stat-card fade-in" style="animation-delay: 0.1s;">
+                    <div class="stat-icon" style="background: rgba(16, 185, 129, 0.1); color: var(--accent-emerald);">
+                        <i class="fas fa-users-viewfinder"></i>
+                    </div>
+                    <div class="stat-value" id="count-students">0</div>
+                    <div class="stat-label">Active Students</div>
+                </div>
+
+                <div class="stat-card fade-in" style="animation-delay: 0.2s;">
+                    <div class="stat-icon" style="background: rgba(245, 158, 11, 0.1); color: var(--accent-amber);">
+                        <i class="fas fa-map-location-dot"></i>
+                    </div>
+                    <div class="stat-value" id="count-routes">0</div>
+                    <div class="stat-label">System Routes</div>
+                </div>
+
+                <div class="stat-card fade-in" style="animation-delay: 0.3s;">
+                    <div class="stat-icon" style="background: rgba(244, 63, 94, 0.1); color: var(--accent-rose);">
+                        <i class="fas fa-radar"></i>
+                    </div>
+                    <div class="stat-value" id="count-live">0</div>
+                    <div class="stat-label">Live Transmissions</div>
+                </div>
+            </div>
+
+            <!-- Recent Activity Section -->
+            <div class="data-container fade-in" style="animation-delay: 0.4s;">
+                <div class="data-header">
+                    <h2>Live Tracking Status</h2>
+                    <div class="search-box">
+                        <input type="text" class="search-bar" placeholder="Search bus number...">
+                    </div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Driver Name</th>
+                            <th>Bus No</th>
+                            <th>Last Seen</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="live-table-body">
+                        <!-- Dynamic content -->
+                        <tr>
+                            <td colspan="5" style="text-align: center; color: var(--text-secondary); padding: 40px;">
+                                <i class="fas fa-spinner fa-spin"></i> Initializing Firebase connection...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="js/dashboard.js"></script>
+</body>
+
+</html>

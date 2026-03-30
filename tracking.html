@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Fleet Monitor | Admin Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        if (localStorage.getItem('admin_logged_in') !== 'true') {
+            window.location.href = 'login.html';
+        }
+    </script>
+    <style>
+        #map {
+            width: 100%;
+            height: calc(100vh - 200px);
+            border-radius: 28px;
+            background: #f1f5f9;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-premium);
+        }
+
+        .fleet-sidebar {
+            width: 320px;
+            background: white;
+            border-radius: 24px;
+            padding: 24px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-premium);
+            max-height: calc(100vh - 200px);
+            overflow-y: auto;
+        }
+
+        .bus-item {
+            padding: 18px;
+            border-radius: 16px;
+            background: var(--bg-light);
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+        }
+
+        .bus-item:hover,
+        .bus-item.active {
+            background: white;
+            border-color: var(--primary-color);
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(15, 103, 253, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="global-loader" class="loader-overlay">
+        <div class="spinner"></div>
+    </div>
+
+    <div class="admin-wrapper">
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-icon"><i class="fas fa-bus"></i></div>
+                <span class="brand-name">BUS TRACK</span>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="index.html" class="nav-link"><i
+                                class="fas fa-grid-2"></i><span>Overview</span></a></li>
+                    <li class="nav-item"><a href="drivers.html" class="nav-link"><i
+                                class="fas fa-id-badge"></i><span>Personnel</span></a></li>
+                    <li class="nav-item"><a href="students.html" class="nav-link"><i
+                                class="fas fa-user-graduate"></i><span>Students</span></a></li>
+                    <li class="nav-item"><a href="fees.html" class="nav-link"><i
+                                class="fas fa-money-check-alt"></i><span>Fees</span></a></li>
+                    <li class="nav-item"><a href="routes.html" class="nav-link"><i class="fas fa-route"></i><span>Fleet
+                                Routes</span></a></li>
+                    <li class="nav-item"><a href="tracking.html" class="nav-link active"><i
+                                class="fas fa-satellite-dish"></i><span>Live Monitor</span></a></li>
+                    <li class="nav-item"><a href="notifications.html" class="nav-link"><i
+                                class="fas fa-bullhorn"></i><span>Broadcasts</span></a></li>
+                </ul>
+                <ul class="nav-menu" style="margin-top: 100px;">
+                    <li class="nav-item"><a href="login.html" class="nav-link" style="color: var(--accent-rose);"><i
+                                class="fas fa-power-off"></i><span>Logout</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="header">
+                <div class="page-title">
+                    <h1>Live Monitor</h1>
+                    <p>Real-Time GPS Fleet Surveillance</p>
+                </div>
+            </header>
+
+            <div style="display: flex; gap: 30px;">
+                <div style="flex: 1;">
+                    <div id="map"></div>
+                </div>
+                <div class="fleet-sidebar fade-in">
+                    <h3 style="margin-bottom: 20px; font-weight: 800; font-size: 20px;">Active Fleet</h3>
+                    <div id="fleet-list"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="js/tracking.js"></script>
+</body>
+
+</html>

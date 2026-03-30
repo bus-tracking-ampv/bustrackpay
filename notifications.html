@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Broadcast Alerts | Admin Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        if (localStorage.getItem('admin_logged_in') !== 'true') {
+            window.location.href = 'login.html';
+        }
+    </script>
+</head>
+
+<body>
+    <div id="global-loader" class="loader-overlay">
+        <div class="spinner"></div>
+    </div>
+
+    <div class="admin-wrapper">
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-icon"><i class="fas fa-bus"></i></div>
+                <span class="brand-name">BUS TRACK</span>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="index.html" class="nav-link"><i
+                                class="fas fa-grid-2"></i><span>Overview</span></a></li>
+                    <li class="nav-item"><a href="drivers.html" class="nav-link"><i
+                                class="fas fa-id-badge"></i><span>Personnel</span></a></li>
+                    <li class="nav-item"><a href="students.html" class="nav-link"><i
+                                class="fas fa-user-graduate"></i><span>Students</span></a></li>
+                    <li class="nav-item"><a href="routes.html" class="nav-link"><i class="fas fa-route"></i><span>Fleet
+                                Routes</span></a></li>
+                    <li class="nav-item"><a href="fees.html" class="nav-link"><i
+                                class="fas fa-money-check-alt"></i><span>Fees</span></a></li>
+                    <li class="nav-item"><a href="tracking.html" class="nav-link"><i
+                                class="fas fa-satellite-dish"></i><span>Live Monitor</span></a></li>
+                    <li class="nav-item"><a href="notifications.html" class="nav-link active"><i
+                                class="fas fa-bullhorn"></i><span>Broadcasts</span></a></li>
+                </ul>
+                <ul class="nav-menu" style="margin-top: 100px;">
+                    <li class="nav-item"><a href="login.html" class="nav-link" style="color: var(--accent-rose);"><i
+                                class="fas fa-power-off"></i><span>Logout</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="header">
+                <div class="page-title">
+                    <h1>Alert Dispatch</h1>
+                    <p>Communicate with Entire Fleet Instantly</p>
+                </div>
+            </header>
+
+            <div style="display: grid; grid-template-columns: 420px 1fr; gap: 32px;">
+                <div class="data-container fade-in">
+                    <h2 style="font-size: 24px; font-weight: 800;">Post New Alert</h2>
+                    <form id="notification-form" style="margin-top: 30px;">
+                        <div style="margin-bottom: 20px;">
+                            <label
+                                style="display: block; margin-bottom: 10px; font-weight: 600; color: var(--text-secondary);">Alert
+                                Title</label>
+                            <input type="text" id="alert-title" class="search-bar" style="width: 100%;"
+                                placeholder="e.g. Traffic Reroute" required>
+                        </div>
+                        <div style="margin-bottom: 20px;">
+                            <label
+                                style="display: block; margin-bottom: 10px; font-weight: 600; color: var(--text-secondary);">Target
+                                Audience</label>
+                            <select id="alert-target" class="search-bar" style="width: 100%;">
+                                <option value="all">All Fleet Users</option>
+                                <option value="drivers">Drivers Only</option>
+                                <option value="students">Students Only</option>
+                            </select>
+                        </div>
+                        <div style="margin-bottom: 30px;">
+                            <label
+                                style="display: block; margin-bottom: 10px; font-weight: 600; color: var(--text-secondary);">Message
+                                Content</label>
+                            <textarea id="alert-message" class="search-bar"
+                                style="width: 100%; height: 140px; resize: none;"
+                                placeholder="Detailed alert message..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary"
+                            style="width: 100%; justify-content: center; padding: 16px;">
+                            <i class="fas fa-paper-plane"></i> DISPATCH BROADCAST
+                        </button>
+                    </form>
+                </div>
+
+                <div class="data-container fade-in" style="animation-delay: 0.2s;">
+                    <h2 style="font-size: 24px; font-weight: 800;">Dispatch History</h2>
+                    <div id="notification-list" style="margin-top: 30px;">
+                        <!-- Alerts -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="js/notifications.js"></script>
+</body>
+
+</html>
